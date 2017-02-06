@@ -1,0 +1,15 @@
+{
+  "name": "fusion-api",
+  "version": "1.0.0",
+  "description": "A Rest API designed as for use by Coventry University Programming Support at Theata",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.coventry.ac.uk/302CEM-1617JANMAY/Fusion-API.git"
+  },
+  "author": "Jack Tidbury",
+  "license": "ISC"
+}
