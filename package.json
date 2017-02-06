@@ -10,6 +10,9 @@
     "type": "git",
     "url": "https://github.coventry.ac.uk/302CEM-1617JANMAY/Fusion-API.git"
   },
-  "author": "Jack Tidbury",
-  "license": "ISC"
+  "author": "Team Fusion",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.1"
+  }
 }
