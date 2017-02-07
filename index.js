@@ -13,4 +13,8 @@ app.get('/database/test', function(req,res) {
 	database.testdb(req,res)
 })
 
+app.get('/database/printdb', function(req,res) {
+	database.printdb(req,res)
+})
+
 app.listen(port)
