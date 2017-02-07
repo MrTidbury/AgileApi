@@ -2,7 +2,7 @@
 
 const express = require('express')
 const app = express()
-const port = 8080
+const port = 80
 const database = require('./modules/database')
 
 app.get('/test', function(req,res) {
