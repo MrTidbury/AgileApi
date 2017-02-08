@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "node jasmine.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "deploy": "node jasmine.js",
+      "postdeploy": "git push deploy master"
   },
   "repository": {
     "type": "git",
