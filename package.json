@@ -6,8 +6,8 @@
   "scripts": {
     "test": "node jasmine.js",
     "start": "node index.js",
-    "deploy": "node jasmine.js",
-      "postdeploy": "git push deploy master"
+    "publish": "node jasmine.js",
+      "postpublish": "git push deploy master"
   },
   "repository": {
     "type": "git",
