@@ -1,6 +1,6 @@
 'use strict'
 const request = require('request')
-const base_url = 'http://localhost:8080/test'
+const base_url = 'http://localhost:5000/test'
 const index = require('../index.js')
 const SuccessCode = 200
 const ErrCode = 500

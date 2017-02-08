@@ -7,7 +7,7 @@
     "test": "node jasmine.js",
     "start": "node index.js",
     "publish": "node jasmine.js",
-      "postpublish": "git push deploy master"
+    "postpublish": "git push deploy master"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,8 @@
     "node-mysql": "^0.4.2",
     "passport-local": "^1.0.0",
     "request": "^2.79.0"
+  },
+  "devDependencies": {
+    "pre-commit": "^1.2.2"
   }
 }
