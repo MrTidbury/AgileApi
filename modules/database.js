@@ -2,16 +2,16 @@
 const mysql = require('mysql')
 const ErrCode = 500
 const connection = mysql.createConnection({
-	host: '91.238.160.3',
-	user: 'voidreal_apitest',
-	password: 'apitest1234',
-	database: 'voidreal_rankme'
+	host: '34.248.127.76',
+	user: 'fusion',
+	password: 'h720DR262lr',
+	database: 'mydb'
 })
 
 connection.connect()
 exports.testdb = function testdb(req, res){
 
-	connection.query('SELECT * from servers', function(err) {
+	connection.query('SELECT * from lecturers', function(err) {
 		if (!err)
 		 res.json({DatabaseConnectionStatus: 'Succsessful'})
 		else
@@ -20,10 +20,12 @@ exports.testdb = function testdb(req, res){
 
 }
 exports.printdb = function printdb(req, res){
-	connection.query('SELECT * from servers', function(err, rows) {
-		if (!err)
-			res.send(rows)
-		else
+	connection.query('SELECT * from lecturers', function(err, rows) {
+		if (!err){
+			const resutls = JSON.stringify(rows)
+
+			res.send(resutls)
+		}		else
     console.log(err)
 	 })
 
