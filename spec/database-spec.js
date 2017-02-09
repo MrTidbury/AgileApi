@@ -30,7 +30,7 @@ describe('Can Retrive Data from Database', function() {
 	})
 	it('Returns Correct Data from Database', function(done) {
 		request.get(print_url, function(error, response, body){
-			expect(body).toContain('Retakes')
+			expect(body).toContain('name')
 			done()
 		})
 	})
