@@ -5,6 +5,8 @@ const app = express()
 const port = 5000
 const database = require('./modules/database')
 
+app.set('jsonp callback', true)
+
 app.get('/test', function(req,res) {
 	res.json({ApiStatus: 'Online'})
 })

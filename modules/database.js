@@ -13,7 +13,7 @@ exports.testdb = function testdb(req, res){
 
 	connection.query('SELECT * from lecturers', function(err) {
 		if (!err)
-		 res.json({DatabaseConnectionStatus: 'Succsessful'})
+		 res.jsonp({DatabaseConnectionStatus: 'Succsessful'})
 		else
     res.status(ErrCode).json({DatabaseConnectionStatus: err})
 	})
@@ -24,7 +24,8 @@ exports.printdb = function printdb(req, res){
 		if (!err){
 			const resutls = JSON.stringify(rows)
 
-			res.send(resutls)
+			res.as
+			res.jsonp(resutls)
 		}		else
     console.log(err)
 	 })
