@@ -34,6 +34,7 @@ When working on the Api, just a few quick notes to help improve collaboration:
         - `git remote add testenv dokku@34.248.146.65:apitestenv`
     - Now you can push to the new remote and dokku should build and deploy the application. You will see a load of feedback in the terminal, but dont worry about it. If something goes wrong when building the application then Dokku will refuse the pudh and keep the old version of the code
         -  `git push deoploy master`  to push to the main application. Runs on default port.
-        -  `git push testenv <currentbranch>:master` to push to the test enviroment, you will recive a port number in the terminal back.
+        -  `git push testenv <currentbranch>:master` to push to the test enviroment, you will recive a port number in the terminal back. normally the same
+        
 `
 -
