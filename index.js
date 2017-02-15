@@ -4,6 +4,7 @@ const express = require('express')
 const app = express()
 const port = 5000
 const database = require('./modules/database')
+const authorisation = require('./modules/authorisation')
 
 app.set('jsonp callback', true)
 app.use(function(req, res, next) {
@@ -30,6 +31,10 @@ app.get('/test', function(req,res) {
 
 app.get('/database/test', function(req,res) {
 	database.testdb(req,res)
+})
+
+app.get('/auth/test', function(req,res) {
+	authorisation.adduser(req,res)
 })
 
 app.get('/database/printdb', function(req,res) {
