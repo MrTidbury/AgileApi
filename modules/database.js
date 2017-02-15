@@ -22,10 +22,7 @@ exports.testdb = function testdb(req, res){
 exports.printdb = function printdb(req, res){
 	connection.query('SELECT * from lecturers', function(err, rows) {
 		if (!err){
-			const resutls = JSON.stringify(rows)
-
-			res.as
-			res.jsonp(resutls)
+			res.json(rows)
 		}		else
     console.log(err)
 	 })
