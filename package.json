@@ -20,6 +20,7 @@
     "jasmine": "^2.5.3",
     "jasmine-console-reporter": "^1.2.7",
     "mssql": "^3.3.0",
+    "mysql": "^2.13.0",
     "node-mysql": "^0.4.2",
     "passport-local": "^1.0.0",
     "request": "^2.79.0"
