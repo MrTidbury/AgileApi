@@ -28,14 +28,16 @@ exports.adduser = function adduser(req, res){
 
 	const course = req.headers.course
 	const name = req.headers.name
+	const position = req.headers.position
 
   	connection.query('SELECT * FROM users WHERE `Email` = '+email , function(err, rows) {
 		if (!err) {
 			if(rows){
 				res.status(AuthErrCode).json({error: 'User with email'+email+'already exists'})
 			}			else {
-				connection.query('//INSERT USER INTO DATABASE' , function(err, rows) {
+				connection.query('//INSERT USER INTO User DATABASE' , function(err, rows) {
 					if (!err) {
+            //also insert the rest of the data into student/lecturers database
             // send validation email.
 					}					else{
 						console.log (err)
