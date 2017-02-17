@@ -27,7 +27,7 @@ const isEmpty = function(obj) {
 	return Object.keys(obj).length === 0
 }
 const sendmail = function(email,valcode){
-	const validationUrl = '/validate/'+email+'?q='+valcode
+	const validationUrl = 'http://34.248.146.65:1121/validate/'+email+'?q='+valcode
 	const mail = {
 					 from: 'Coventry University Theta  <api@tidbury.tech>',
 					 to: email,
