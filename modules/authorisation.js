@@ -59,30 +59,44 @@ exports.adduser = function adduser(req, res){
 	const name = req.headers.name
 	const valcode = uuidV4()
 
-  	connection.query('SELECT * FROM users WHERE email = "'+email+'"' , function(err, rows) {
+  	connection.query('SELECT * FROM email WHERE email = "'+email+'"' , function(err, rows) {
 		if (!err) {
 			if(!isEmpty(rows)){
+				console.log(rows)
 				res.status(AuthErrCode).json({error: 'User with email '+email+' already exists'})
 			}			else {
+				const useremail = {email: email}
 
-				const student = {name: name, email: email, course: course}
+				connection.query('INSERT INTO email SET?',useremail, function(err,rows){
+					if(!err){
+						console.log(rows)
+						const emailid = rows.insertId
+						const student = {name: name, em_id: emailid, course: course}
 
-				connection.query('INSERT INTO students SET ?', student, function(err, rows) {
-					if (!err) {
-						const user = {email: email, passwordhash: hashedPassword,user_id: rows.insertId, staff: '0', validationcode: valcode, validated: '0'}
+						connection.query('INSERT INTO students SET ?', student, function(err, rows2) {
+							if (!err) {
+								const user = {em_id: emailid, passwordhash: hashedPassword, type: '0', validationcode: valcode, validated: '0'}
+								const corrid = rows2.insertId
 
-						connection.query('INSERT INTO users SET ?', user, function(err, rows) {
-							if (!err){
-								sendmail(email,valcode)
-								res.status(SuccsessCode).json({status: 'sucsess', studentid: rows.insertId})
-							}							else {
-		      			res.status(ErrCode).json({error: err})
+								console.log(corrid)
+								connection.query('INSERT INTO users SET ?', user, function(err) {
+									if (!err){
+										sendmail(email,valcode)
+										res.status(SuccsessCode).json({status: 'sucsess', studentid: corrid})
+									}							else {
+										res.status(ErrCode).json({error: err})
+									}
+								})
+							}					else{
+								res.status(ErrCode).json({error: err})
 							}
 						})
 					}					else{
-      			res.status(ErrCode).json({error: err})
+						console.log (err)
+						res.status(ErrCode).json({error: err})
 					}
 				})
+
 			}
 		}		else{
 			console.log (err)

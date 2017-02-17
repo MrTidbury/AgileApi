@@ -11,7 +11,7 @@ const connection = mysql.createConnection({
 connection.connect()
 exports.testdb = function testdb(req, res){
 
-	connection.query('SELECT * from lecturers', function(err) {
+	connection.query('SELECT l.lec_id, l.name, em.email, l.title, l.gender, l.speaks FROM email em, lecturers l WHERE em.em_id=l.em_id', function(err) {
 		if (!err)
 		 res.jsonp({DatabaseConnectionStatus: 'Succsessful'})
 		else
