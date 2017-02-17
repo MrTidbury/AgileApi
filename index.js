@@ -48,8 +48,8 @@ app.delete('/user', function(req,res,next) {
 	authorisation.login(req,res,next), authorisation.removeuser(req,res)
 })
 
-app.get('/database/printdb', function(req,res) {
-	database.printdb(req,res)
+app.get('/database/printdb', function(req,res,next) {
+	database.printdb(req,res,next)
 })
 
 app.listen(port)

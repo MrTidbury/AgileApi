@@ -149,12 +149,12 @@ exports.removeuser = function removeuser(req,res){
 	const parts=auth.split(/:/)
 	const email=parts[0]
 
-	connection.query('DELETE * FROM students WHERE stud_id = 1' , function(err, rows, field) {
+	connection.query('DELETE * FROM students WHERE email = "'+email+'"' , function(err, rows, field) {
 		if(!err){
+			res.json({sucsess: 'true'})
 			console.log(rows, field)
-			res.send('sucsess')
 		}		else{
-			res.send(err)
+			res.json({sucsess: err})
 		}
 	})
 
