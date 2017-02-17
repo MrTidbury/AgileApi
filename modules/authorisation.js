@@ -109,20 +109,31 @@ exports.validate = function validate(req, res){
 	const validationCode = req.query.q
 	const email = req.params.email
 
-	connection.query('SELECT * FROM users WHERE email = "'+email+'"' , function(err, rows) {
+	connection.query('SELECT * FROM email WHERE email = "'+email+'"', function(err, rows){
 		if(!err){
-			if (validationCode === rows[0].validationcode){
-				connection.query('UPDATE users SET validated = ? WHERE email = ?', [1, email], function(err){
-					if(!err){
-						res.send({validated: true})
-					}					else{
-						res.status(ErrCode).json({error: err})
-					}
-				})
+			const emailidd = rows[0].em_id
 
-			}
-		}		else
+			connection.query('SELECT * FROM users WHERE em_id = "'+emailidd+'"' , function(err, rows) {
+				if(!err){
+					if (validationCode === rows[0].validationcode){
+						connection.query('UPDATE users SET validated = ? WHERE em_id = ?', [1, emailidd], function(err){
+							if(!err){
+								res.send({validated: true})
+							}					else{
+								res.status(ErrCode).json({error: err})
+							}
+						})
+
+					}
+				}		else
+					console.log(err)
+
+			})
+
+		}		else{
 			console.log(err)
+			res.status(ErrCode).json({sucsess: err})
+		}
 
 	})
 }
@@ -135,22 +146,38 @@ exports.login = function login(req, res, next){
 	const email=parts[0]
 	const password=parts[1]
 
-	connection.query('SELECT * FROM users WHERE email = "'+email+'"' , function(err, rows) {
+	connection.query('SELECT * FROM email WHERE email = "'+email+'"', function(err, rows){
 		if(!err){
-			if(isEmpty(rows)){
+			if(!isEmpty(rows)){
+				const emailidd = rows[0].em_id
+
+				connection.query('SELECT * FROM users WHERE em_id = "'+emailidd+'"' , function(err, rows) {
+				 if(!err){
+					 if(isEmpty(rows)){
+						 res.status(AuthErrCode).json({code: 'Unauthorized'})
+					 }			else if (!isEmpty(rows)) {
+						 if (passwordHash.verify(password, rows[0].passwordhash) && rows[0].validated === 1){
+							 next()
+						 }				else{
+							 res.status(AuthErrCode).json({code: 'Unauthorized'})
+						 }
+					 }
+
+				 }		else{
+					 res.status(ErrCode).json({error: err})
+				 }
+			 })
+			}			else{
 				res.status(AuthErrCode).json({code: 'Unauthorized'})
-			}			else if (!isEmpty(rows)) {
-				if (passwordHash.verify(password, rows[0].passwordhash) && rows[0].validated === 1){
-					next()
-				}				else{
-					res.status(AuthErrCode).json({code: 'Unauthorized'})
-				}
 			}
 
 		}		else{
-			res.status(ErrCode).json({error: err})
+			console.log(err)
+			res.status(ErrCode).json({sucsess: err})
+			res.end()
 		}
 	})
+
 }
 
 exports.authtest = function authtest(req,res){
@@ -165,26 +192,45 @@ exports.removeuser = function removeuser(req,res){
 	const parts=auth.split(/:/)
 	const email=parts[0]
 
-	connection.query('DELETE FROM users WHERE email = "'+email+'"' , function(err) {
+	connection.query('SELECT * FROM email WHERE email = "'+email+'"' , function(err, rows) {
 		if(!err){
-			connection.query('DELETE FROM students WHERE email = "'+email+'"' , function(err) {
+			const emailidd = rows[0].em_id
+
+			connection.query('DELETE FROM users WHERE em_id = "'+emailidd+'"' , function(err) {
 				if(!err){
-					connection.query('DELETE FROM lecturers WHERE email = "'+email+'"' , function(err) {
+					connection.query('DELETE FROM students WHERE em_id = "'+emailidd+'"' , function(err) {
 						if(!err){
-							res.json({status: 'User Removed'})
-							res.end()
-						}						else{
+							connection.query('DELETE FROM lecturers WHERE em_id = "'+emailidd+'"' , function(err) {
+								if(!err){
+									connection.query('DELETE FROM email WHERE em_id = "'+emailidd+'"', function(err){
+										if(!err){
+											res.json({status: 'user has been removed'})
+											res.end()
+										}										else{
+											console.log(err)
+											res.status(ErrCode).json({sucsess: err})
+											res.end()
+										}
+									})
+								}						else{
+									console.log(err)
+									res.status(ErrCode).json({sucsess: err})
+									res.end()
+								}
+							})
+						}				else{
 							console.log(err)
 							res.status(ErrCode).json({sucsess: err})
 							res.end()
 						}
 					})
-				}				else{
+				}		else{
 					console.log(err)
 					res.status(ErrCode).json({sucsess: err})
 					res.end()
 				}
 			})
+
 		}		else{
 			console.log(err)
 			res.status(ErrCode).json({sucsess: err})
