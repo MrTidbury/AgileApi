@@ -33,6 +33,10 @@ app.get('/database/test', function(req,res) {
 	database.testdb(req,res)
 })
 
+app.get('/validate/:email', function(req,res) {
+	authorisation.validate(req,res)
+})
+
 app.get('/auth/test', function(req,res) {
 	authorisation.adduser(req,res)
 })
