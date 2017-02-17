@@ -20,8 +20,7 @@ app.get('/test', function(req,res) {
 app.get('/database/test',database.testdb)
 app.get('/validate/:email',authorisation.validate)
 app.put('/user', authorisation.adduser)
-app.get('/auth/test', authorisation.login, authorisation.authtest)
 app.delete('/user', authorisation.login, authorisation.removeuser)
-app.get('/database/printdb',database.printdb)
+app.get('/staff/directory',database.printdb)
 
 app.listen(port)
