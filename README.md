@@ -20,7 +20,7 @@ When working on the Api, just a few quick notes to help improve collaboration:
 
 - Although test driven development would be ideal please ensure that at the minumum you write tests for a unit as soon as it is finished.
 
-- To run the api it is 'npm start'
+- To run the api it is 'npm start' or alternatly node index.js
 - All tests are to be stored in the spec folder with the following naming convention of <uni-name>-spec.js such as database-spec.js. To carry out tests'npm test'
 
 - You will notice that when working on the API it is not possible to commit any changes unless all tests pass, this is Continuous Integration, it is possible to get around this and commit broken code, but please dont
