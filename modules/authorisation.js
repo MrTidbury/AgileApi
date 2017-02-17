@@ -46,6 +46,7 @@ const sendmail = function(email,valcode){
 
 
 connection.connect({multipleStatements: true})
+
 exports.adduser = function adduser(req, res){
 	const header=req.headers['authorization']||''
 	const token=header.split(/\s+/).pop()||''
@@ -123,12 +124,12 @@ exports.login = function login(req, res, next){
 	connection.query('SELECT * FROM users WHERE email = "'+email+'"' , function(err, rows) {
 		if(!err){
 			if(isEmpty(rows)){
-				res.status(AuthErrCode).json({error: 'No user exists with the email '+email+' please try again'})
-			}			else {
+				res.status(AuthErrCode).json({code: 'Unauthorized'})
+			}			else if (!isEmpty(rows)) {
 				if (passwordHash.verify(password, rows[0].passwordhash) && rows[0].validated === 1){
 					next()
 				}				else{
-					res.status(AuthErrCode).json({status: 'Unauthorized'})
+					res.status(AuthErrCode).json({code: 'Unauthorized'})
 				}
 			}
 
@@ -140,6 +141,7 @@ exports.login = function login(req, res, next){
 
 exports.authtest = function authtest(req,res){
 	res.send('This is a protected enpoint, meaning that you are logged in and validted')
+	res.end()
 }
 
 exports.removeuser = function removeuser(req,res){
@@ -149,12 +151,30 @@ exports.removeuser = function removeuser(req,res){
 	const parts=auth.split(/:/)
 	const email=parts[0]
 
-	connection.query('DELETE * FROM students WHERE email = "'+email+'"' , function(err, rows, field) {
+	connection.query('DELETE FROM users WHERE email = "'+email+'"' , function(err) {
 		if(!err){
-			res.json({sucsess: 'true'})
-			console.log(rows, field)
+			connection.query('DELETE FROM students WHERE email = "'+email+'"' , function(err) {
+				if(!err){
+					connection.query('DELETE FROM lecturers WHERE email = "'+email+'"' , function(err) {
+						if(!err){
+							res.json({status: 'User Removed'})
+							res.end()
+						}						else{
+							console.log(err)
+							res.status(ErrCode).json({sucsess: err})
+							res.end()
+						}
+					})
+				}				else{
+					console.log(err)
+					res.status(ErrCode).json({sucsess: err})
+					res.end()
+				}
+			})
 		}		else{
-			res.json({sucsess: err})
+			console.log(err)
+			res.status(ErrCode).json({sucsess: err})
+			res.end()
 		}
 	})
 
