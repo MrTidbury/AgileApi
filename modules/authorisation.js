@@ -45,7 +45,7 @@ const sendmail = function(email,valcode){
 }
 
 
-connection.connect()
+connection.connect({multipleStatements: true})
 exports.adduser = function adduser(req, res){
 	const header=req.headers['authorization']||''
 	const token=header.split(/\s+/).pop()||''
@@ -112,4 +112,50 @@ exports.validate = function validate(req, res){
 	})
 }
 
-exports.login = function validate(req, res, next)
+exports.login = function login(req, res, next){
+	const header=req.headers['authorization']||''
+	const token=header.split(/\s+/).pop()||''
+	const auth=new Buffer(token, 'base64').toString()
+	const parts=auth.split(/:/)
+	const email=parts[0]
+	const password=parts[1]
+
+	connection.query('SELECT * FROM users WHERE email = "'+email+'"' , function(err, rows) {
+		if(!err){
+			if(isEmpty(rows)){
+				res.status(AuthErrCode).json({error: 'No user exists with the email '+email+' please try again'})
+			}			else {
+				if (passwordHash.verify(password, rows[0].passwordhash) && rows[0].validated === 1){
+					next()
+				}				else{
+					res.status(AuthErrCode).json({status: 'Unauthorized'})
+				}
+			}
+
+		}		else{
+			res.status(ErrCode).json({error: err})
+		}
+	})
+}
+
+exports.authtest = function authtest(req,res){
+	res.send('This is a protected enpoint, meaning that you are logged in and validted')
+}
+
+exports.removeuser = function removeuser(req,res){
+	const header=req.headers['authorization']||''
+	const token=header.split(/\s+/).pop()||''
+	const auth=new Buffer(token, 'base64').toString()
+	const parts=auth.split(/:/)
+	const email=parts[0]
+
+	connection.query('DELETE * FROM students WHERE stud_id = 1' , function(err, rows, field) {
+		if(!err){
+			console.log(rows, field)
+			res.send('sucsess')
+		}		else{
+			res.send(err)
+		}
+	})
+
+}

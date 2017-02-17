@@ -37,8 +37,15 @@ app.get('/validate/:email', function(req,res) {
 	authorisation.validate(req,res)
 })
 
-app.get('/auth/test', function(req,res) {
+app.put('/user', function(req,res) {
 	authorisation.adduser(req,res)
+})
+app.get('/auth/test',	 function(req,res,next) {
+	authorisation.login(req,res,next), authorisation.authtest(req,res)
+})
+
+app.delete('/user', function(req,res,next) {
+	authorisation.login(req,res,next), authorisation.removeuser(req,res)
 })
 
 app.get('/database/printdb', function(req,res) {
