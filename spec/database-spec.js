@@ -1,7 +1,7 @@
 'use strict'
 const request = require('request')
-const base_url = 'https://localhost:5000/database/test'
-const print_url = 'https://localhost:5000/staff/directory'
+const base_url = 'http://localhost:5000/database/test'
+const print_url = 'http://localhost:5000/staff/directory'
 const index = require('../modules/database.js')
 const SuccessCode = 200
 const ErrCode = 500
