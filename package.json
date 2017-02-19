@@ -10,7 +10,7 @@
     "postpublish": "git push deploy master"
   },
   "engines": {
-    "node": "7.5.29"
+    "node": "7.5.0"
   },
   "repository": {
     "type": "git",
