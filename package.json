@@ -9,6 +9,9 @@
     "publish": "node jasmine.js",
     "postpublish": "git push deploy master"
   },
+  "engines": {
+   "node": "7.5.0"
+ },
   "repository": {
     "type": "git",
     "url": "https://github.coventry.ac.uk/302CEM-1617JANMAY/Fusion-API.git"
