@@ -10,8 +10,8 @@
     "postpublish": "git push deploy master"
   },
   "engines": {
-   "node": "7.5.0"
- },
+    "node": "7.5.29"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.coventry.ac.uk/302CEM-1617JANMAY/Fusion-API.git"
@@ -20,6 +20,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.14.1",
+    "fs": "0.0.1-security",
+    "https": "^1.0.0",
     "jasmine": "^2.5.3",
     "jasmine-console-reporter": "^1.2.7",
     "mssql": "^3.3.0",

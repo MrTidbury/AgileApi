@@ -1,10 +1,14 @@
 'use strict'
 
 const express = require('express')
+const fs = require('fs')
 const app = express()
 const port = 5000
+const https = require('https')
 const database = require('./modules/database')
 const authorisation = require('./modules/authorisation')
+const privatekey = fs.readFileSync('/home/key.pem')
+const certificate = fs.readFileSync('/home/cert.pem')
 
 app.set('jsonp callback', true)
 app.use(function(req, res, next) {
@@ -23,4 +27,7 @@ app.put('/user', authorisation.adduser)
 app.delete('/user', authorisation.login, authorisation.removeuser)
 app.get('/staff/directory',database.printdb)
 
-app.listen(port)
+https.createServer({
+	key: privatekey,
+	cert: certificate
+}, app).listen(port)
