@@ -22,7 +22,17 @@ exports.testdb = function testdb(req, res){
 exports.printdb = function printdb(req, res){
 	connection.query('SELECT * from lecturers', function(err, rows) {
 		if (!err){
-			res.json(rows)
+			res.json({directory: rows})
+		}		else
+    console.log(err)
+	 })
+
+}
+
+exports.printdb2 = function printdb2(req, res){
+	connection.query('SELECT * from lecturers', function(err, rows) {
+		if (!err){
+			res.json({directory: rows})
 		}		else
     console.log(err)
 	 })

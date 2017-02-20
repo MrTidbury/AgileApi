@@ -24,5 +24,5 @@ app.put('/user', authorisation.adduser)
 app.get('/staff/availability/:id', availability.findavailability)
 app.delete('/user', authorisation.login, authorisation.removeuser)
 app.get('/staff/directory',database.printdb)
-
+app.get('/staff/directory2',database.printdb2)
 app.listen(port)
