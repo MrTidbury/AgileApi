@@ -7,7 +7,8 @@
  /staff/directory (GET) Returns a the staff directory as a JSON object.
 /user (PUT) adds a user to the system, needs Basic Auth header, name header, course header. Returns new student ID
 /user (DELETE) removes a user from the system. Requires Basic auth header for validation
-/validate/:email this is then endpoint that is eamiled to the users to verify thier account
+/validate/:email (GET) this is then endpoint that is eamiled to the users to verify thier account
+/staff/availability/:id (GET) pass an id to endpoint for it to reurn the sessions that this member appears in 
 ##### Developers Please Read
 
 Currently the Api is very basic and only has a few endpoints. At this point it would be good to make sure that your development environments are set up to work with node. This is currently being developed in the latest version of node (7.5.0).
@@ -20,7 +21,7 @@ When working on the Api, just a few quick notes to help improve collaboration:
 
 - Although test driven development would be ideal please ensure that at the minumum you write tests for a unit as soon as it is finished.
 
-- To run the api it is 'npm start'
+- To run the api it is 'npm start' or alternatly node index.js
 - All tests are to be stored in the spec folder with the following naming convention of <uni-name>-spec.js such as database-spec.js. To carry out tests'npm test'
 
 - You will notice that when working on the API it is not possible to commit any changes unless all tests pass, this is Continuous Integration, it is possible to get around this and commit broken code, but please dont
