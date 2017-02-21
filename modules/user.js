@@ -70,7 +70,7 @@ exports.profile = function profile(req,res){
 
 	connection.query('SELECT s.stud_id, s.name, em.email, s.course FROM email em, students s WHERE em.em_id=s.em_id AND em.email = "'+email+'"', function(err, rows) {
 		if(!err){
-			res.json({results: rows})
+			res.json(rows)
 		}		else{
 			console.log(err)
 			res.status(ErrCode).json(err)

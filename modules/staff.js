@@ -9,6 +9,7 @@ const connection = mysql.createConnection({
 	database: 'mydb'
 })
 
+connection.connect()
 exports.search = function search(req,res){
 	const tag = req.params.tag
 	const term = req.query.q
@@ -54,4 +55,40 @@ exports.search = function search(req,res){
 	}
 
 }
-connection.connect()
+
+exports.profile = function profile(req,res){
+	const id = req.params.id
+
+	connection.query('SELECT l.lec_id, l.name, l.title, em.email, l.speaks, l.gender  FROM email em, lecturers l WHERE em.em_id=l.em_id AND l.lec_id = "'+id+'"', function(err, lec) {
+		if(!err){
+			connection.query('SELECT s.skill_name FROM skill_link sl, lecturers l, skills s WHERE s.skill_id=sl.skill_id AND l.lec_id = sl.lec_id AND l.lec_id = "'+id+'"', function(err,row){
+				if(!err){
+					const skill = []
+
+					for (let i = 0; i < Object.keys(row).length; i++){
+						skill.push(row[i].skill_name)
+					}
+					const lecturer = {
+						lec_id: lec[0].lec_id,
+						name: lec[0].name,
+						title: lec[0].title,
+						email: lec[0].email,
+						speaks: lec[0].speaks,
+						gender: lec[0].gender,
+						skills: skill.join(', ')
+					}
+
+					console.log(skill)
+					res.json(lecturer)
+				}				else{
+					console.log(err)
+					res.status(ErrCode).json(err)
+				}
+			})
+
+		}		else{
+			console.log(err)
+			res.status(ErrCode).json(err)
+		}
+	})
+}
