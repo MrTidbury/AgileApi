@@ -30,7 +30,7 @@ exports.printdb = function printdb(req, res){
 }
 
 exports.printdb2 = function printdb2(req, res){
-	connection.query('SELECT * from lecturers', function(err, rows) {
+	connection.query('SELECT l.lec_id, l.name, em.email, l.title, l.gender, l.speaks FROM email em, lecturers l WHERE em.em_id=l.em_id', function(err, rows) {
 		if (!err){
 			res.json({directory: rows})
 		}		else
