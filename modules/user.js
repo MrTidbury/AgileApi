@@ -60,3 +60,20 @@ exports.identify = function identify(req,res){
 	})
 
 }
+
+exports.profile = function profile(req,res){
+	const header=req.headers['authorization']||''
+	const token=header.split(/\s+/).pop()||''
+	const auth=new Buffer(token, 'base64').toString()
+	const parts=auth.split(/:/)
+	const email=parts[0]
+
+	connection.query('SELECT s.stud_id, s.name, em.email, s.course FROM email em, students s WHERE em.em_id=s.em_id AND em.email = "'+email+'"', function(err, rows) {
+		if(!err){
+			res.json({results: rows})
+		}		else{
+			console.log(err)
+			res.status(ErrCode).json(err)
+		}
+	})
+}
