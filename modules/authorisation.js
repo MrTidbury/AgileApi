@@ -57,6 +57,7 @@ exports.adduser = function adduser(req, res){
 	const hashedPassword = passwordHash.generate(password)
 	const course = req.headers.course
 	const name = req.headers.name
+	const id = req.headers.id
 	const valcode = uuidV4()
 
   	connection.query('SELECT * FROM email WHERE email = "'+email+'"' , function(err, rows) {
@@ -71,11 +72,11 @@ exports.adduser = function adduser(req, res){
 					if(!err){
 						console.log(rows)
 						const emailid = rows.insertId
-						const student = {name: name, em_id: emailid, course: course}
+						const student = {stud_id: id, name: name, em_id: emailid, course: course}
 
 						connection.query('INSERT INTO students SET ?', student, function(err, rows2) {
 							if (!err) {
-								const user = {em_id: emailid, passwordhash: hashedPassword, type: '0', validationcode: valcode, validated: '0'}
+								const user = { em_id: emailid, passwordhash: hashedPassword, type: '0', validationcode: valcode, validated: '0'}
 								const corrid = rows2.insertId
 
 								console.log(corrid)
