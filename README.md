@@ -29,9 +29,9 @@ When working on the Api, just a few quick notes to help improve collaboration:
 - To deploy the changes to the API I have configured a heroku like environment allowing deployment by just git push deploy. Drop me a PM for me to help you set it up as it is fiddly. Alternatly here are the steps if you wish to do it yourself. Note these steps are for UNIX based environments, there are ways to do it on windows but they are not fun :/
     - Ensure that you can SSH into the API server.
     - Run the following command in terminal
-        - `cat /path/to/public_key | ssh -i PATHTOKEY.ppk ubunutu@34.248.146.65 "sudo sshcommand acl-add dokku <yourname>"`
+        - `cat /path/to/public_key | ssh -i PATHTOKEY.ppk ubuntu@34.248.146.65 "sudo sshcommand acl-add dokku <yourname>"`
      - Apparently this is the command for windows athough I couldnt get it working
-        - `"C:\path\to\public_key"| ssh -i PATHTOKEY.ppk ubunutu@34.248.146.65 "sudo sshcommand acl-add dokku <yourname>"`
+        - `"C:\path\to\public_key"| ssh -i PATHTOKEY.ppk ubuntu@34.248.146.65 "sudo sshcommand acl-add dokku <yourname>"`
     - Once that is done then It should echo a bunch of random digits back to you (this is the fingerprint of the SSH connection)
     - Add the Git remote
         - `git remote add deploy dokku@34.248.146.65:api`

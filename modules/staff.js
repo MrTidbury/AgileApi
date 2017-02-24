@@ -24,7 +24,7 @@ exports.search = function search(req,res){
 			console.log(err)
   	 })
 	}	else if(tag === 'language'){
-		connection.query('SELECT l.name,l.lec_id,l.title, s.lang_name FROM languages_link, languages s, lecturers l WHERE sl.lang_id=s.lang_id AND sl.lec_id=l.lec_id AND s.lang_name LIKE \'%'+term+'%\'', function(err, rows) {
+		connection.query('SELECT l.name,l.lec_id,l.title, la.lang_name FROM languages_link ll, languages la, lecturers l WHERE ll.lang_id=la.lang_id AND ll.lec_id=l.lec_id AND la.lang_name LIKE \'%'+term+'%\'', function(err, rows) {
 			if(!err){
 				res.json({results: rows})
 			}			else{
