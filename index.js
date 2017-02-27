@@ -22,7 +22,7 @@ app.get('/test', function(req,res) {
 })
 app.get('/database/test',database.testdb)
 app.get('/validate/:email',authorisation.validate)
-app.put('/user', authorisation.adduser)
+app.post('/user', authorisation.adduser)
 app.get('/staff/availability/:id', availability.findavailability)
 app.delete('/user', authorisation.login, authorisation.removeuser)
 app.get('/staff/directory',database.printdb)
