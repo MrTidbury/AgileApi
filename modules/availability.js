@@ -15,7 +15,7 @@ connection.connect({multipleStatements: true})
 exports.findavailability = function findavailability(req,res){
 	const id = req.params.id
 
-	connection.query('SELECT * FROM session WHERE lec_id = "'+id+'"', function(err, rows){
+	connection.query('SELECT * FROM sessions WHERE lec_id = "'+id+'"', function(err, rows){
 		if(!err){
 			res.send(rows)
 		}		else{
