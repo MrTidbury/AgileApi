@@ -16,7 +16,9 @@ connection.connect()
 exports.getfavourites = function getfavourites(req,res){
   const id = req.params.id
 
-  connection.query('SELECT * FROM favourites WHERE stud_id = "'+id+'"', function(err, rows){
+  connection.query('SELECT l.name FROM students s, favourites f, lecturers l WHERE s.stud_id=f.stud_id AND l.lec_id=f.lec_id AND s.stud_id = "'+id+'"', function(err, rows){
+  //connection.query('SELECT l.lec_id, l.name, l.title, l.title, l.speaks FROM lecturers WHERE s.stud_id = "'+id+'"', function(err, rows){
+  //connection.query('SELECT * FROM favourites WHERE stud_id = "'+id+'"', function(err, rows){
     if(!err){
       res.send(rows)}
       else{
