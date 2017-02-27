@@ -6,6 +6,7 @@ const port = 5000
 const database = require('./modules/database')
 const availability = require('./modules/availability')
 const authorisation = require('./modules/authorisation')
+const favourites = require('./modules/favourites')
 
 app.set('jsonp callback', true)
 app.use(function(req, res, next) {
@@ -24,5 +25,7 @@ app.put('/user', authorisation.adduser)
 app.get('/staff/availability/:id', availability.findavailability)
 app.delete('/user', authorisation.login, authorisation.removeuser)
 app.get('/staff/directory',database.printdb)
+app.get('/favourites/:id', favourites.getfavourites)
+app.put('/favourites', favourites.savefavourites)
 
 app.listen(port)
