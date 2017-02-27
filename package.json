@@ -19,11 +19,14 @@
   "author": "Team Fusion",
   "license": "ISC",
   "dependencies": {
+    "cheerio": "^0.22.0",
+    "create-file": "^1.0.1",
     "express": "^4.14.1",
     "fs": "0.0.1-security",
     "https": "^1.0.0",
     "jasmine": "^2.5.3",
     "jasmine-console-reporter": "^1.2.7",
+    "jsonfile": "^2.4.0",
     "mssql": "^3.3.0",
     "mysql": "^2.13.0",
     "node-mysql": "^0.4.2",
@@ -32,6 +35,7 @@
     "passport-local": "^1.0.0",
     "password-hash": "^1.2.2",
     "request": "^2.79.0",
+    "touch": "^1.0.0",
     "uuid": "^3.0.1"
   },
   "devDependencies": {
