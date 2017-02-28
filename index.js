@@ -9,6 +9,7 @@ const authorisation = require('./modules/authorisation')
 const staff = require('./modules/staff')
 const user = require('./modules/user')
 const timetable = require('./modules/timetable')
+const favourites = require('./modules/favourites')
 
 app.set('jsonp callback', true)
 app.use(function(req, res, next) {
@@ -33,4 +34,7 @@ app.get('/staff/search/:tag', staff.search)
 app.get('/staff/profile/:id', staff.profile)
 app.get('/staff/directory2',database.printdb2)
 app.get('/user/timetable', timetable.gettimetable)
+app.get('/favourites/:id', favourites.getfavourites)
+app.post('/favourites', favourites.savefavourites)
+
 app.listen(port)
