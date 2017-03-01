@@ -8,7 +8,8 @@
 /user (PUT) adds a user to the system, needs Basic Auth header, name header, course header. Returns new student ID
 /user (DELETE) removes a user from the system. Requires Basic auth header for validation
 /validate/:email (GET) this is then endpoint that is eamiled to the users to verify thier account
-/staff/availability/:id (GET) pass an id to endpoint for it to reurn the sessions that this member appears in 
+/staff/availability/:id (GET) pass an id to endpoint for it to reurn the sessions that this member appears in
+/favourites (DELETE) Removes a favourite from the system by passing an ID to the endpoint
 ##### Developers Please Read
 
 Currently the Api is very basic and only has a few endpoints. At this point it would be good to make sure that your development environments are set up to work with node. This is currently being developed in the latest version of node (7.5.0).
