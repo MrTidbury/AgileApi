@@ -32,8 +32,8 @@ exports.getfavourites = function getfavourites(req,res){
 exports.savefavourites = function savefavourites(req,res){
   const id = req.headers.id
   const lec_id = req.headers.lec_id
-  const thing = {lec_id: lec_id, stud_id: id}
-  connection.query('INSERT INTO favourites SET ?', thing,  function(err, rows){
+  const fav = {lec_id: lec_id, stud_id: id}
+  connection.query('INSERT INTO favourites SET ?', fav,  function(err, rows){
     if(!err){
       res.send(rows)}
       else{
@@ -43,7 +43,24 @@ exports.savefavourites = function savefavourites(req,res){
     })
   }
 
+exports.deletefavourites = function deletefavourites(req,res){
+  const fav_id= req.headers.fav_id
+  //const lec_name = req.headers.lec_name
+  //const thing = {lec_id: lec_id, stud_id: id}
+
+connection.query('DELETE FROM favourites WHERE fav_id = "'+fav_id+'"', function(err){
+//connection.query('DELETE FROM favourites WHERE lec_id = 1 AND stud_id = 10', function(err){
+	if(!err){
+		res.json({status: 'favourite has been removed'})}
+		else{
+			console.log(err)}
+		}
+	)}
 
 
-/* Get: select x from table where student id = id on webpage
-Put: insert x into table (student id and lec id) */
+	/*connection.query('DELETE FROM favourites WHERE lec_name = "'+lec_name+'"', function(err, rows) {
+    if (!err){
+      res.send(rows)}
+      else{
+        console.log(err)
+        res.status(ErrCode).json({error:err})*/

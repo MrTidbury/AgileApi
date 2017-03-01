@@ -27,5 +27,5 @@ app.delete('/user', authorisation.login, authorisation.removeuser)
 app.get('/staff/directory',database.printdb)
 app.get('/favourites/:id', favourites.getfavourites)
 app.post('/favourites', favourites.savefavourites)
-
+app.delete('/favourites', favourites.deletefavourites)
 app.listen(port)
