@@ -9,7 +9,6 @@ const ErrCode = 500
 describe('Test Suite for DataBase', function() {
 	it('Connects to DataBase', function(done) {
 		request.get(base_url, function(error, response){
-			console.log(response)
 			expect(response.statusCode).toBe(SuccessCode)
 			done()
 		})
