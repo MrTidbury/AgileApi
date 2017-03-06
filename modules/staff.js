@@ -44,7 +44,7 @@ exports.search = function search(req,res){
 	}	else if(tag === 'speaks'){
 		connection.query('SELECT name, title, lec_id FROM lecturers WHERE speaks LIKE \'%'+term+'%\'', function(err, rows){
 			if(!err){
-				res.json({results: rows})
+				res.json({resutls: rows})
 			}			else{
 				res.status(ErrCode).json({error: err})
 				console.log(err)
