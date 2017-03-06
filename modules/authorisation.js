@@ -157,10 +157,14 @@ exports.login = function login(req, res, next){
 					 if(isEmpty(rows)){
 						 res.status(AuthErrCode).json({code: 'Unauthorized'})
 					 }			else if (!isEmpty(rows)) {
-						 if (passwordHash.verify(password, rows[0].passwordhash) && rows[0].validated === 1){
-							 next()
-						 }				else{
-							 res.status(AuthErrCode).json({code: 'Unauthorized'})
+						 if (rows[0].validated === 1){
+							 if(passwordHash.verify(password, rows[0].passwordhash)){
+								 next()
+							 }							 else{
+								 res.status(AuthErrCode).json({code: 'Unauthorized'})
+							 }
+						 }						 else{
+							 res.status(AuthErrCode).json({code: 'Unvalidated'})
 						 }
 					 }
 
